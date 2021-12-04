@@ -9,7 +9,7 @@ class weatherServices {
   getWeather = (woeid, date) => {
     return axios.request({
       method: "GET",
-      url: `/location/${woeid}/${date}`,
+      url: `/location/${woeid}/${date}/`,
     });
   };
 }

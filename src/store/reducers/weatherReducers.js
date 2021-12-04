@@ -1,7 +1,7 @@
 import { SEARCH_CITY, GET_WEATHER } from "../constant/weatherConstant";
 
 const initialState = {
-  city: [],
+  city: {},
   weather: [],
   loading: false,
 };
@@ -9,7 +9,6 @@ const initialState = {
 const weatherReducer = (state = initialState, action) => {
   switch (action.type) {
     case SEARCH_CITY: {
-      console.log(action.payload);
       return {
         ...state,
         city: action.payload,
