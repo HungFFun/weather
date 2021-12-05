@@ -1,4 +1,4 @@
-import { Col, Row, Select } from "antd";
+import { Card, Col, Row, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import "./style.scss";
 import {
@@ -84,14 +84,16 @@ const Index = () => {
           </Select>
         </Col>
       </Row>
-      <Row style={{ marginLeft: "100px", marginRight: "100px" }}>
-        <Col className="col-weather" span={3}>
-          <h2>{city.title}</h2>
-          <p> {moment(Date.now()).format("LTS")}</p>
+      <Row style={{ marginLeft: "15rem" }}>
+        <Col span={5}>
+          <Card className="col-weather" style={{ height: "243px" }}>
+            <h2>{city.title}</h2>
+            <p> {moment(Date.now()).format("LTS")}</p>
+          </Card>
         </Col>
         {weatherFiveDay?.map((item, index) => {
           return (
-            <Col className="col-weather" span={4} key={index}>
+            <Col span={3} key={index}>
               <WeatherDetail weatherDetail={item}></WeatherDetail>
             </Col>
           );
