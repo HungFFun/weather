@@ -1,9 +1,22 @@
 .background-custom {
   background-image: url("../../IMG/bg2.jpeg");
   background-color: #cccccc;
-  height: 789px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+
+  height: 840px;
   position: relative;
+}
+.Col-search {
+  margin-top: 200px;
+  margin-bottom: 50px;
+
+  text-align: center;
+}
+.col-weather {
+  text-align: center;
+
+  margin-right: 2px;
+  margin-left: 2px;
 }
