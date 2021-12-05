@@ -19,7 +19,7 @@ const Index = ({ weatherDetail }) => {
     if (
       formatDate(new Date(), 0) === formatDate(weatherDetail.applicable_date, 0)
     ) {
-      return <p className="title-card">To Day</p>;
+      return <p className="title-card">ToDay</p>;
     } else {
       return <p className="title-card">{weatherDetail.applicable_date}</p>;
     }
