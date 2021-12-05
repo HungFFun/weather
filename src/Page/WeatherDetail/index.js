@@ -1,8 +1,6 @@
 import React from "react";
 
 const Index = ({ weatherDetail }) => {
-  console.log("s");
-  console.log(weatherDetail);
   return (
     <div>
       <p>Ngay</p>

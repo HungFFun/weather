@@ -1,16 +1,20 @@
-import { Col, Row, Input } from "antd";
+import { Col, Row, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import "./style.scss";
-import { getWeather, searchCity } from "../../store/actions/weatherActions";
+import {
+  findNameCity,
+  getWeather,
+  searchCity,
+} from "../../store/actions/weatherActions";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { formatDate } from "../../controller";
 import WeatherDetail from "../WeatherDetail";
 const Index = () => {
-  const { Search } = Input;
+  const { Option } = Select;
 
   const dispatch = useDispatch();
-  const [nameCity, setNameCity] = useState("");
+  const [optionNameCity, setOptionNameCity] = useState([]);
   const [weatherFiveDay, setWeatherFiveDay] = useState();
   const { city } = useSelector((state) => state.weather);
 
@@ -42,25 +46,42 @@ const Index = () => {
     return data;
   };
 
-  const textInput = (event) => {
-    setNameCity(event.target.value);
+  const onSearch = async (value) => {
+    if (value !== null) {
+      const listName = await findNameCity(value);
+      await setOptionNameCity(listName);
+    }
   };
 
-  const onSearch = (value) => {
-    dispatch(searchCity(nameCity));
+  const optionSelect = optionNameCity?.map((item, index) => {
+    return (
+      <Option value={item.title} key={index}>
+        {item.title}
+      </Option>
+    );
+  });
+
+  const onChange = (value) => {
+    dispatch(searchCity(value));
   };
 
   return (
     <div className="background-custom">
       <Row>
         <Col span={24} className="Col-search ">
-          <Search
-            placeholder="input name city"
-            onSearch={onSearch}
-            value={nameCity}
-            onChange={textInput}
+          <Select
+            showSearch
             style={{ width: 500 }}
-          />
+            placeholder="Select a name city"
+            optionFilterProp="children"
+            onChange={onChange}
+            onSearch={onSearch}
+            filterOption={(input, option) =>
+              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+          >
+            {optionSelect}
+          </Select>
         </Col>
       </Row>
       <Row style={{ marginLeft: "100px", marginRight: "100px" }}>
@@ -70,8 +91,8 @@ const Index = () => {
         </Col>
         {weatherFiveDay?.map((item, index) => {
           return (
-            <Col className="col-weather" span={4}>
-              <WeatherDetail weatherDetail={item} key={index}></WeatherDetail>
+            <Col className="col-weather" span={4} key={index}>
+              <WeatherDetail weatherDetail={item}></WeatherDetail>
             </Col>
           );
         })}
